@@ -16,10 +16,10 @@ A vue 3 plugin for NEAR API. Useful for building dapps with NEAR blockchain quic
 ### 1. Install Plugin
 ```bash
 # yarn
-yarn add @tjtc/vue-near
+yarn add vue-near
 
 # npm
-npm install @tjtc/vue-near
+npm install vue-near
 ```
 
 ### 2. Add CDN NEAR-API-JS
@@ -35,7 +35,7 @@ Add this script tag to your `index.html` file.
 ```js
 // In main.js
 import { createApp } from 'vue'
-import VueNear from "@tjtc/vue-near"
+import VueNear from "vue-near"
 
 const app = createApp(App)
 
