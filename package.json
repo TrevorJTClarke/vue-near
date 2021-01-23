@@ -1,0 +1,34 @@
+{
+  "name": "vue-near",
+  "version": "0.1.0",
+  "description": "NEAR Protocol plugin for Vue 3, enabling easy methods within common vuejs patterns",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"No test specified\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TrevorJTClarke/vue-near.git"
+  },
+  "keywords": [
+    "NEAR",
+    "NEAR",
+    "Protocol",
+    "NEAR",
+    "Blockchain",
+    "Blockchain",
+    "Vue",
+    "Vuejs",
+    "Vue",
+    "3",
+    "Plugin",
+    "Vue",
+    "Plugin"
+  ],
+  "author": "trevorjtclarke",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TrevorJTClarke/vue-near/issues"
+  },
+  "homepage": "https://github.com/TrevorJTClarke/vue-near#readme"
+}
