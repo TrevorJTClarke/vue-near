@@ -68,6 +68,20 @@ export function getConfig(env, options = {}) {
   }
 }
 
+// string to uint array
+// REF: https://coolaj86.com/articles/unicode-string-to-a-utf-8-typed-array-buffer-in-javascript/
+function unicodeStringToTypedArray(s) {
+  const escstr = encodeURIComponent(s)
+  const binstr = escstr.replace(/%([0-9A-F]{2})/g, function (match, p1) {
+    return String.fromCharCode('0x' + p1)
+  });
+  let ua = new Uint8Array(binstr.length)
+  Array.prototype.forEach.call(binstr, function (ch, i) {
+    ua[i] = ch.charCodeAt(0)
+  })
+  return ua
+}
+
 export class VueNear {
   constructor(env, config) {
     // loading via CDN, requires adding this line to index.html:
@@ -137,6 +151,27 @@ export class VueNear {
       contract_id,
       { ...abi, sender: account.accountId }
     )
+  }
+
+  async getSignedPayload(message) {
+    if (!this.user || !this.user.accountId) return
+    const { secretKey } = await this.keystore.getKey(this.config.networkId, this.user.accountId)
+    if (!secretKey) return
+    const pair = new this.nearApi.utils.key_pair.KeyPairEd25519(secretKey)
+    if (!pair) return
+    const parsed = unicodeStringToTypedArray(message)
+    const sig = await pair.sign(parsed)
+
+    return {
+      message,
+      signature: sig.signature,
+      publicKey: sig.publicKey.data,
+    }
+  }
+
+  signedPayloadToString(payload) {
+    const payloadStr = `${payload.message}|${payload.signature.toString()}|${payload.publicKey.toString()}`
+    return this.nearApi.utils.serialize.base_encode(payloadStr)
   }
 
 }
